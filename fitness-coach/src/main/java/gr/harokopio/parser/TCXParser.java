@@ -70,4 +70,99 @@ public class TCXParser {
                 return new Running(id, startTime);
         }
     }
+    private Lap parseLap(Element lapElement) {
+        try {
+            String startTimeStr = lapElement.getAttribute("StartTime");
+            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, ISO_FORMATTER);
+            Lap lap = new Lap(startTime);
+
+            NodeList trackList = lapElement.getElementsByTagName("Track");
+            for (int i = 0; i < trackList.getLength(); i++) {
+                Element trackElement = (Element) trackList.item(i);
+                Track track = parseTrack(trackElement);
+                if (track != null) {
+                    lap.addTrack(track);
+                }
+            }
+
+            return lap;
+        } catch (Exception e) {
+            System.err.println("Error parsing lap: " + e.getMessage());
+            return null;
+        }
+    }
+    private Track parseTrack(Element trackElement) {
+        Track track = new Track();
+
+        NodeList trackpointList = trackElement.getElementsByTagName("Trackpoint");
+        for (int i = 0; i < trackpointList.getLength(); i++) {
+            Element trackpointElement = (Element) trackpointList.item(i);
+            Trackpoint trackpoint = parseTrackpoint(trackpointElement);
+            if (trackpoint != null) {
+                track.addTrackpoint(trackpoint);
+            }
+        }
+
+        return track.getTrackpoints().isEmpty() ? null : track;
+    }
+    private Trackpoint parseTrackpoint(Element trackpointElement) {
+        try {
+            String timeStr = getElementTextContent(trackpointElement, "Time");
+            LocalDateTime time = LocalDateTime.parse(timeStr, ISO_FORMATTER);
+
+            Element positionElement = (Element) trackpointElement.getElementsByTagName("Position").item(0);
+            double latitude = 0;
+            double longitude = 0;
+
+            if (positionElement != null) {
+                latitude = Double.parseDouble(getElementTextContent(positionElement, "LatitudeDegrees"));
+                longitude = Double.parseDouble(getElementTextContent(positionElement, "LongitudeDegrees"));
+            }
+
+            double altitude = parseDouble(trackpointElement, "AltitudeMeters", 0.0);
+            double distance = parseDouble(trackpointElement, "DistanceMeters", 0.0);
+
+            Trackpoint trackpoint = new Trackpoint(time, latitude, longitude, altitude, distance);
+
+            // Προαιρετικά πεδία
+            Element hrElement = (Element) trackpointElement.getElementsByTagName("HeartRateBpm").item(0);
+            if (hrElement != null) {
+                String hrValue = getElementTextContent(hrElement, "Value");
+                if (hrValue != null && !hrValue.isEmpty()) {
+                    trackpoint.setHeartRateBpm(Integer.parseInt(hrValue));
+                }
+            }
+
+            String cadenceStr = getElementTextContent(trackpointElement, "Cadence");
+            if (cadenceStr != null && !cadenceStr.isEmpty()) {
+                trackpoint.setCadence(Integer.parseInt(cadenceStr));
+            }
+
+            return trackpoint;
+        } catch (Exception e) {
+            System.err.println("Error parsing trackpoint: " + e.getMessage());
+            return null;
+        }
+    }
+    private String getElementTextContent(Element parent, String tagName) {
+        NodeList nodeList = parent.getElementsByTagName(tagName);
+        if (nodeList.getLength() > 0) {
+            Node node = nodeList.item(0);
+            if (node.getChildNodes().getLength() > 0) {
+                return node.getChildNodes().item(0).getNodeValue();
+            }
+        }
+        return null;
+    }
+    private double parseDouble(Element parent, String tagName, double defaultValue) {
+        String value = getElementTextContent(parent, tagName);
+        if (value != null && !value.isEmpty()) {
+            try {
+                return Double.parseDouble(value);
+            } catch (NumberFormatException e) {
+                return defaultValue;
+            }
+        }
+        return defaultValue;
+    }
 }
