@@ -1,0 +1,11 @@
+gr/harokopio/parser/TCXParser.class
+gr/harokopio/model/Running.class
+gr/harokopio/model/UserProfile.class
+gr/harokopio/model/Track.class
+gr/harokopio/model/Walking.class
+gr/harokopio/model/Swimming.class
+gr/harokopio/model/Lap.class
+gr/harokopio/model/Cycling.class
+gr/harokopio/FitnessCoach.class
+gr/harokopio/model/Trackpoint.class
+gr/harokopio/model/Activity.class

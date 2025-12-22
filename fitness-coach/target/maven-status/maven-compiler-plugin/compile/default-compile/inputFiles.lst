@@ -1,0 +1,11 @@
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/FitnessCoach.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/model/Activity.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/model/Cycling.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/model/Lap.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/model/Running.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/model/Swimming.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/model/Track.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/model/Trackpoint.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/model/UserProfile.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/model/Walking.java
+/home/alex/Documents/GitHub/CoachFitness/fitness-coach/src/main/java/gr/harokopio/parser/TCXParser.java
