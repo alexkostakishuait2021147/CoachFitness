@@ -218,5 +218,6 @@ public class FitnessCoach {
         System.out.println("  java -jar coach.jar -w 65 -a 25 -g f activity.tcx");
     }
 
+//test
 
 }
