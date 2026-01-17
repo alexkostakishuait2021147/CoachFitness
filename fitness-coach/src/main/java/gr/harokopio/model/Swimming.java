@@ -2,9 +2,7 @@ package gr.harokopio.model;
 
 import java.time.LocalDateTime;
 
-/**
- * Αναπαριστά μια δραστηριότητα κολύμπι.
- */
+
 public class Swimming extends Activity {
 
     public Swimming(String id, LocalDateTime startTime) {
