@@ -1,15 +1,21 @@
 package gr.harokopio;
 
+import gr.harokopio.gui.FitnessCoachGUI;
 import gr.harokopio.model.*;
 import gr.harokopio.parser.TCXParser;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 public class FitnessCoach {
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            printUsage();
+            // Launch GUI when no command-line arguments are provided
+            SwingUtilities.invokeLater(() -> {
+                FitnessCoachGUI gui = new FitnessCoachGUI();
+                gui.show();
+            });
             return;
         }
 
